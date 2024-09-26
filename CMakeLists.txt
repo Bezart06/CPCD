@@ -24,13 +24,11 @@ endif()
 if(OS_TYPE STREQUAL "Windows")
     add_custom_command(TARGET CPCD
             POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E echo "Creating executable for Windows with admin rights"
             COMMAND powershell -Command "Start-Process cmd.exe -Verb RunAs -ArgumentList '/c', $<TARGET_FILE:CPCD>"
     )
 elseif(OS_TYPE STREQUAL "Linux")
     add_custom_command(TARGET CPCD
             POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E echo "Creating executable for Linux with sudo permissions"
             COMMAND sudo chmod +x $<TARGET_FILE:CPCD>
             COMMAND sudo $<TARGET_FILE:CPCD>
     )
