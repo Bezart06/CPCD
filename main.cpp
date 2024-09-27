@@ -1,7 +1,7 @@
 // CPCD App
 
 #include <iostream>
-#ifdef _WIN32 || _WIN64
+#ifdef _WIN32
 #define OEMRESOURCE
 #include <windows.h>
 #include <conio.h>
@@ -20,7 +20,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
 }
 
 void cpcd() {
-#ifdef _WIN32 || _WIN64
+#ifdef _WIN32
     WNDCLASS wc = {};
     wc.lpfnWndProc = WindowProc;
     wc.hInstance = GetModuleHandle(nullptr);
@@ -29,15 +29,17 @@ void cpcd() {
 
     RegisterClass(&wc);
 
-    HWND fullScreenWnd = CreateWindowEx(0, "FullScreenClass", nullptr,
+    HWND fullScreenWnd = CreateWindowEx(WS_EX_LAYERED | WS_EX_TOOLWINDOW, "FullScreenClass", nullptr,
         WS_POPUP | WS_VISIBLE, 0, 0,
         GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),
         nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
 
     if (fullScreenWnd == nullptr) {
         std::cerr << "Не удалось создать окно!" << std::endl;
-        return;
+        exit(EXIT_FAILURE);
     }
+
+    SetLayeredWindowAttributes(fullScreenWnd, 0, 255, LWA_ALPHA);
 
     SetWindowPos(fullScreenWnd, HWND_TOPMOST, 0, 0, GetSystemMetrics(SM_CXSCREEN),
         GetSystemMetrics(SM_CYSCREEN), SWP_SHOWWINDOW);

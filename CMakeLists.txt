@@ -12,7 +12,7 @@ elseif (LINUX)
     set(OS_TYPE "Linux")
 endif ()
 
-add_executable(CPCD main.cpp)
+add_executable(CPCD WIN32 main.cpp)
 
 if(OS_TYPE STREQUAL "Windows")
     set_target_properties(CPCD PROPERTIES OUTPUT_NAME "CPCD_executable")
