@@ -4,13 +4,15 @@ project(CPCD)
 
 if (WIN32)
     set(OS_TYPE "Windows")
-elseif (WIN64)
-    set(OS_TYPE "Windows")
 elseif (UNIX)
     set(OS_TYPE "Linux")
 elseif (LINUX)
     set(OS_TYPE "Linux")
 endif ()
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
+endif()
 
 add_executable(CPCD WIN32 main.cpp)
 
@@ -24,12 +26,12 @@ endif()
 if(OS_TYPE STREQUAL "Windows")
     add_custom_command(TARGET CPCD
             POST_BUILD
-            COMMAND powershell -Command "Start-Process cmd.exe -Verb RunAs -ArgumentList '/c', $<TARGET_FILE:CPCD>"
+            COMMAND ${CMAKE_COMMAND} -E echo "Executable built for Windows"
     )
 elseif(OS_TYPE STREQUAL "Linux")
     add_custom_command(TARGET CPCD
             POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E echo "Executable built for Linux"
             COMMAND sudo chmod +x $<TARGET_FILE:CPCD>
-            COMMAND sudo $<TARGET_FILE:CPCD>
     )
 endif()
