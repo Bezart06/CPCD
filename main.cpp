@@ -34,7 +34,8 @@ void cpcd() {
 
     HWND fullScreenWnd = CreateWindowEx(WS_EX_LAYERED | WS_EX_TOOLWINDOW,
         "FullScreenClass", nullptr, WS_POPUP | WS_VISIBLE, 0, 0,
-        screenWidth, screenHeight, nullptr, nullptr, GetModuleHandle(nullptr), nullptr);
+		screenWidth, screenHeight, nullptr, nullptr,
+		GetModuleHandle(nullptr), nullptr);
 
     if (fullScreenWnd == nullptr) {
         std::cerr << "Failed to create window!" << std::endl;
