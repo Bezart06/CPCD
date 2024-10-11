@@ -2,18 +2,58 @@
 
 #include <iostream>
 #ifdef _WIN32
-#define OEMRESOURCE
 #include <windows.h>
 #include <conio.h>
 #elif __linux__
 #include <unistd.h>
 #endif
 
+HHOOK hKeyboardHook;
+bool blockInput = true;
+bool rightCtrlPressed = false;
+bool rightAltPressed = false;
+
+LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
+    if (nCode == HC_ACTION) {
+        auto* pKeyboard = (KBDLLHOOKSTRUCT*)lParam;
+
+        if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) {
+            if (pKeyboard->vkCode == VK_RCONTROL) {
+                rightCtrlPressed = true;
+            }
+            if (pKeyboard->vkCode == VK_RMENU) {
+                rightAltPressed = true;
+            }
+
+            if (rightCtrlPressed && rightAltPressed) {
+                blockInput = false;
+                std::cout << "Input unblocked!" << std::endl;
+                UnhookWindowsHookEx(hKeyboardHook);
+                return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
+            }
+        }
+
+        if (wParam == WM_KEYUP || wParam == WM_SYSKEYUP) {
+            if (pKeyboard->vkCode == VK_RCONTROL) {
+                rightCtrlPressed = false;
+            }
+            if (pKeyboard->vkCode == VK_RMENU) {
+                rightAltPressed = false;
+            }
+        }
+
+        if (blockInput) {
+            return 1;
+        }
+    }
+    return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
+}
+
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch (uMsg) {
         case WM_DESTROY:
             PostQuitMessage(0);
-        return 0;
+            return 0;
         default:
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }
@@ -43,14 +83,24 @@ void cpcd() {
     }
 
     SetLayeredWindowAttributes(fullScreenWnd, 0, 255, LWA_ALPHA);
-
-    SetWindowPos(fullScreenWnd, HWND_TOPMOST, 0, 0, GetSystemMetrics(SM_CXSCREEN),
-        GetSystemMetrics(SM_CYSCREEN), SWP_SHOWWINDOW);
+    SetWindowPos(fullScreenWnd, HWND_TOPMOST, 0, 0,
+			screenWidth, screenHeight, SWP_SHOWWINDOW);
 
     ShowCursor(FALSE);
 
+    hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, nullptr, 0);
+    if (!hKeyboardHook) {
+        std::cerr << "Failed to set keyboard hook!" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     MSG msg = {};
     while (GetMessage(&msg, nullptr, 0, 0)) {
+        if (!blockInput) {
+            ShowCursor(TRUE);
+            DestroyWindow(fullScreenWnd);
+            break;
+        }
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
