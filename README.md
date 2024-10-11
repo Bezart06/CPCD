@@ -26,10 +26,10 @@ Follow the steps below to install and run the CPCD App on your PC.
   cd CPCD\
 ```
 ```bash
-mkdir build
-cd build\
-cmake ..
-cmake --build . --config Release
+  mkdir build
+  cd build\
+  cmake ..
+  cmake --build . --config Release
 ```
 Or you can download executable file from Releases.
     
