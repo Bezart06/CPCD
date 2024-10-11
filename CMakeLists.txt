@@ -1,26 +1,31 @@
 cmake_minimum_required(VERSION 3.10)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-project(CPCD)
+project(CPCD VERSION 0.1.0 LANGUAGES CXX)
 
 if (WIN32)
     set(OS_TYPE "Windows")
 elseif (UNIX)
-    set(OS_TYPE "Linux")
+    set(OS_TYPE "Unix")
 elseif (LINUX)
     set(OS_TYPE "Linux")
 endif ()
 
-if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
-endif()
-
 add_executable(CPCD WIN32 main.cpp)
 
-if(OS_TYPE STREQUAL "Windows")
-    set_target_properties(CPCD PROPERTIES OUTPUT_NAME "CPCD_executable")
+if(WIN32)
+    add_compile_options(/O2 /GL)  # Code optimization for Windows
+    add_link_options(/LTCG)
+else()
+    add_compile_options(-O2 -march=native)  # Optimization for Linux
+endif()
+
+if(WIN32)
+    set_target_properties(CPCD PROPERTIES OUTPUT_NAME "CPCD")
     target_link_libraries(CPCD -static-libgcc -static-libstdc++ -static)
-elseif(OS_TYPE STREQUAL "Linux")
-    set_target_properties(CPCD PROPERTIES OUTPUT_NAME "CPCD_executable")
+elseif(LINUX)
+    set_target_properties(CPCD PROPERTIES OUTPUT_NAME "CPCD")
 endif()
 
 if(OS_TYPE STREQUAL "Windows")

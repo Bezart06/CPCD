@@ -1,6 +1,7 @@
 // CPCD App
 
 #include <iostream>
+#define VERSION "0.1.0-rc1"
 #ifdef _WIN32
 #include <windows.h>
 #include <conio.h>
