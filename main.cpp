@@ -1,7 +1,7 @@
 // CPCD App
 
 #include <iostream>
-#define VERSION "0.1.0-rc1"
+#define VERSION "0.1.0-rc2"
 #ifdef _WIN32
 #include <windows.h>
 #include <conio.h>
@@ -16,7 +16,7 @@ bool rightAltPressed = false;
 
 LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
     if (nCode == HC_ACTION) {
-        auto* pKeyboard = (KBDLLHOOKSTRUCT*)lParam;
+        auto* pKeyboard = reinterpret_cast<KBDLLHOOKSTRUCT *>(lParam);
 
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN) {
             if (pKeyboard->vkCode == VK_RCONTROL) {
@@ -53,6 +53,8 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch (uMsg) {
         case WM_DESTROY:
+            UnhookWindowsHookEx(hKeyboardHook);
+            ShowCursor(TRUE);
             PostQuitMessage(0);
             return 0;
         default:
@@ -75,8 +77,8 @@ void cpcd() {
 
     HWND fullScreenWnd = CreateWindowEx(WS_EX_LAYERED | WS_EX_TOOLWINDOW,
         "FullScreenClass", nullptr, WS_POPUP | WS_VISIBLE, 0, 0,
-		screenWidth, screenHeight, nullptr, nullptr,
-		GetModuleHandle(nullptr), nullptr);
+        screenWidth, screenHeight, nullptr, nullptr,
+        GetModuleHandle(nullptr), nullptr);
 
     if (fullScreenWnd == nullptr) {
         std::cerr << "Failed to create window!" << std::endl;
@@ -85,7 +87,7 @@ void cpcd() {
 
     SetLayeredWindowAttributes(fullScreenWnd, 0, 255, LWA_ALPHA);
     SetWindowPos(fullScreenWnd, HWND_TOPMOST, 0, 0,
-			screenWidth, screenHeight, SWP_SHOWWINDOW);
+        screenWidth, screenHeight, SWP_SHOWWINDOW);
 
     ShowCursor(FALSE);
 

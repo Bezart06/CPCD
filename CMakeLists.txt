@@ -1,24 +1,24 @@
 cmake_minimum_required(VERSION 3.10)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 project(CPCD VERSION 0.1.0 LANGUAGES CXX)
 
-if (WIN32)
+if(_WIN32)
     set(OS_TYPE "Windows")
-elseif (UNIX)
+elseif(UNIX)
     set(OS_TYPE "Unix")
-elseif (LINUX)
+elseif(LINUX)
     set(OS_TYPE "Linux")
-endif ()
+endif()
 
 add_executable(CPCD WIN32 main.cpp)
 
 if(WIN32)
-    add_compile_options(/O2 /GL)  # Code optimization for Windows
+    add_compile_options(/O2 /GL)
     add_link_options(/LTCG)
 else()
-    add_compile_options(-O2 -march=native)  # Optimization for Linux
+    add_compile_options(-O2 -march=native)
 endif()
 
 if(WIN32)
