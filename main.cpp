@@ -1,7 +1,8 @@
 // CPCD App
 
 #include <iostream>
-#define VERSION "0.1.0-rc2"
+#define VERSION "0.1.0"
+
 #ifdef _WIN32
 #include <windows.h>
 #include <conio.h>
@@ -14,7 +15,7 @@ bool blockInput = true;
 bool rightCtrlPressed = false;
 bool rightAltPressed = false;
 
-LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
+static LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
     if (nCode == HC_ACTION) {
         auto* pKeyboard = reinterpret_cast<KBDLLHOOKSTRUCT *>(lParam);
 
@@ -50,7 +51,7 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
     return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
 }
 
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     switch (uMsg) {
         case WM_DESTROY:
             UnhookWindowsHookEx(hKeyboardHook);
@@ -62,7 +63,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
     }
 }
 
-void cpcd() {
+static void cpcd() {
 #ifdef _WIN32
     WNDCLASS wc = {};
     wc.lpfnWndProc = WindowProc;
@@ -108,10 +109,11 @@ void cpcd() {
         DispatchMessage(&msg);
     }
 
-    std::cout << "CPCD on Windows!" << std::endl;
+    std::cout << "CPCD on Windows! Version: " << VERSION << std::endl;
 
 #elif __linux__
     // ! added later !
+    std::cout << "CPCD on Linux - functionality not yet implemented in version " << VERSION << std::endl;
 #endif
 }
 
