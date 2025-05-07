@@ -52,7 +52,7 @@ If you'd like to contribute code:
     ```bash
     git push origin name-of-your-branch
     ```
-7.  **Open a Pull Request (PR):** Go to the original CPCD repository on GitHub and open a Pull Request from your forked branch to the `main` (or `develop`, if applicable) branch of the CPCD repository.
+7.  **Open a Pull Request (PR):** Go to the original CPCD repository on GitHub and open a Pull Request from your forked branch to the `main` branch of the CPCD repository.
     * Provide a clear title and description for your PR, explaining the changes you've made and referencing any related issues.
     * Be prepared to discuss your changes and make adjustments if requested by the maintainers.
 
