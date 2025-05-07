@@ -1,67 +1,79 @@
 
 # CPCD
-CPCD App is a desktop application designed exclusively for PCs that provides advanced control over your operating system. This tool ensures distraction-free operation by limiting keyboard and mouse usage and allowing you to customize keyboard shortcuts for safe exit.
 
-Focused on performance and system control, CPCD is ideal for scenarios requiring full-screen lock or focus modes on Windows and Linux (future) platforms, with new features such as multi-monitor support, process control and advanced security capabilities.
+CPCD is a desktop application for PC designed to provide enhanced control over your operating system environment. It helps maintain focus by limiting keyboard input (and potentially mouse usage in the future) and obscuring the screen, allowing for a distraction-free operational mode. Safe exit is managed via a specific keyboard shortcut.
+
+Currently, in version 0.1.0, CPCD offers core full-screen input locking functionality for **Windows**. Future development aims to expand features and include support for Linux platforms.
 
 ![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
 
 
+## Current Features (v0.1.0 - Windows)
+
+* **Full-Screen Lock:** Engages a mode that covers the entire screen.
+* **Keyboard Input Blocking:** Prevents most keyboard interactions while active.
+* **Safe Exit:** Use **Right Ctrl + Right Alt** to exit the locked mode.
+
 ## Demo
 
-Added later ...
-
+*(A demonstration video will be available in future updates.)*
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+*(Screenshots will be added soon to illustrate the application in action.)*
 
 
 ## Installation
 
-Follow the steps below to install and run the CPCD App on your PC.
+### From Source
 
-```bash
-  git clone https://github.com/Bezart06/CPCD.git
-  cd CPCD\
-```
-```bash
-  mkdir build
-  cd build\
-  cmake ..
-  cmake --build . --config Release
-```
-Or you can download executable file from Releases.
-    
+To build CPCD from source, you'll need a C++ compiler (supporting C++23) and CMake.
+
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/bezart06/CPCD.git
+    cd CPCD\
+    ```
+2.  Create a build directory and compile:
+    ```bash
+    mkdir build
+    cd build\
+    cmake ..
+    cmake --build . --config Release
+    ```
+    The executable `CPCD.exe` will be located in the `build/Release` (or `build/`) directory.
+
+### From Releases
+
+Pre-compiled executables for Windows (version 0.1.0) are available on the [GitHub Releases page](https://github.com/Bezart06/CPCD/releases).
+
 ## Documentation
 
-[Documentation](https://linktodocumentation) (Added later ...)
-
+Basic usage instructions are provided in this README. More detailed documentation is planned for future releases.
 
 ## Contributing
 
-Contributions are always welcome! And, it is supported including.
+Contributions are always welcome and highly appreciated! If you'd like to contribute, please see our (soon to be created) `CONTRIBUTING.md` for guidelines.
 
-See `CONTRIBUTING.md` for ways to get started.
+For now, you can:
+* Report bugs or suggest features by creating an issue.
+* Fork the repository and submit pull requests.
 
-But please adhere to the «code of conduct» for this project!
-
+Please adhere to our project's Code of Conduct (link to be added).
 
 ## Authors
 
-- [@Bezart06](https://www.github.com/bezart06)
-
+- [@bezart06](https://www.github.com/bezart06)
 
 ## Feedback
 
-If you have any feedback, please reach out to us at bezart06@gmail.com
-
+If you have any feedback, please reach out at bezart06@gmail.com or by opening an issue on GitHub.
 
 ## Roadmap
 
-🟨 Version 0.1.0 (**Current Version**)
+🟩 Version 0.1.0 (*First Stable Release* - **Current Version**)
 
-❌ Version 0.2.0 (*Interface and Usability Update*)
+🟨 Version 0.2.0 (*Interface and Usability Update*)
 - Planned features:
     - Adding the ability to exit full-screen mode via a customizable keyboard shortcut.
     - Appearance of a notification when attempting to exit full-screen mode.
