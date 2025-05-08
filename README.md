@@ -1,5 +1,4 @@
-
-# CPCD
+<h1 align="center">CPCD</h1>
 
 CPCD is a desktop application for PC designed to provide enhanced control over your operating system environment. It helps by limiting keyboard input (and potentially mouse usage in the future) and obscuring the screen, allowing for a distraction-free operational mode. Safe exit is managed via a specific keyboard shortcut.
 
