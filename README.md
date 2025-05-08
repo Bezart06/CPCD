@@ -71,7 +71,7 @@ If you have any feedback, please reach out at bezart06@gmail.com or by opening a
 
 ## Roadmap
 
-🟩 Version 0.1.0 (*First Stable Release* - **Current Version**)
+🟩 Version 0.1.0 (*First Stable Minor Release* - **Current Version**)
 
 🟨 Version 0.2.0 (*Interface and Usability Update*)
 - Planned features:
@@ -91,7 +91,7 @@ If you have any feedback, please reach out at bezart06@gmail.com or by opening a
     - Full-featured system notifications display in full-screen mode.
     - Customize full-screen window transparency.
 
-❌ Version 1.0.0 (*First stable release*)
+❌ Version 1.0.0 (*First Stable Major Release*)
 
 ❌ Version 1.1.0 (*Advanced Security Settings*)
 - Planned features:
