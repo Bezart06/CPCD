@@ -1,7 +1,7 @@
 // CPCD App
 
 #include <iostream>
-#define VERSION "0.1.0"
+#define VERSION "0.1.1"
 
 #ifdef _WIN32
 #include <windows.h>

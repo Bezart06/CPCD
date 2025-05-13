@@ -8,7 +8,7 @@ We are committed to providing security updates for the following versions of CPC
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 0.1.x   | :white_check_mark: |
+| 0.1.X   | :white_check_mark: |
 | < 0.1.0 | :x: (Unsupported)  |
 
 As new major or minor versions are released, support for older versions may be phased out. Please always try to use the latest stable version of CPCD.
